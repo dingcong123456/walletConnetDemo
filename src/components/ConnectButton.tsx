@@ -1,12 +1,11 @@
 'use client'
 
-import { useAppKit, useAppKitAccount, useAppKitState, useAppKitNetwork } from '@reown/appkit/react'
+import { useAppKit, useAppKitAccount, useAppKitNetwork } from '@reown/appkit/react'
 import { useState, useEffect, useRef } from 'react'
 
 export const ConnectButton = () => {
   const { open, close } = useAppKit()
   const { address, isConnected } = useAppKitAccount()
-  const { loading } = useAppKitState()
   const { chainId, caipNetwork } = useAppKitNetwork()
   const [isHovered, setIsHovered] = useState(false)
   const [isConnecting, setIsConnecting] = useState(false)
