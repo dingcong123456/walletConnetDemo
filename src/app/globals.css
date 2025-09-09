@@ -1,0 +1,275 @@
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground: #ededed;
+    --background: #0a0a0a;
+  }
+}
+
+.pages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  gap: 20px;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Connect button container styles - positioned at top right */
+.connect-button-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Style the connect button to be more compact without avatar */
+appkit-button {
+  --w3m-border-radius-master: 6px;
+}
+
+/* 强力隐藏AppKit按钮中的所有头像元素 - 包括移动端 */
+appkit-button *[class*="avatar"],
+appkit-button *[class*="Avatar"],
+appkit-button *[data-testid*="avatar"],
+appkit-button img[style*="border-radius"],
+appkit-button img[style*="50%"],
+appkit-button img[alt*="avatar"],
+appkit-button img[alt*="Avatar"],
+appkit-button .w3m-avatar,
+appkit-button .wui-avatar,
+appkit-button w3m-avatar,
+appkit-button wui-avatar,
+appkit-button svg,
+appkit-button img,
+[data-testid="single-account-avatar"],
+.w3m-avatar,
+w3m-avatar,
+wui-avatar {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 针对Shadow DOM的全局样式注入 */
+* {
+  --w3m-avatar-display: none !important;
+}
+
+/* 移动端特殊处理 - 隐藏所有可能的头像元素 */
+@media (max-width: 768px) {
+  appkit-button *,
+  appkit-button *[class*="avatar"],
+  appkit-button *[class*="Avatar"],
+  appkit-button *[data-testid*="avatar"],
+  appkit-button img,
+  appkit-button svg {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+  
+  /* 只显示按钮文本 */
+  appkit-button {
+    font-size: 14px !important;
+    padding: 8px 16px !important;
+  }
+}
+
+/* Main content area */
+.main-content {
+  padding: 80px 20px 20px 20px; /* Top padding to avoid overlap with fixed button */
+  min-height: 100vh;
+}
+
+/* Controls container styles */
+.controls-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+/* Network selector styles */
+.network-selector {
+  position: relative;
+  display: inline-block;
+}
+
+.network-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 140px;
+  justify-content: space-between;
+  padding: 10px 15px;
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.network-button:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.network-button.active {
+  background-color: #000;
+  color: white;
+}
+
+.network-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 2px solid black;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  z-index: 100;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.network-option {
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.network-option:last-child {
+  border-bottom: none;
+}
+
+.network-option:hover {
+  background-color: #f5f5f5;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .connect-button-container {
+    top: 15px;
+    right: 15px;
+  }
+  
+  .main-content {
+    padding: 70px 15px 15px 15px;
+  }
+  
+  .controls-container {
+    flex-direction: column;
+    gap: 15px;
+    margin: 15px 0;
+  }
+  
+  .network-button {
+    min-width: 200px;
+    font-size: 16px;
+  }
+  
+  .network-option {
+    font-size: 16px;
+    padding: 12px 15px;
+  }
+  
+  .network-dropdown {
+    width: calc(100vw - 30px);
+    left: 0;
+    right: auto;
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .connect-button-container {
+    top: 10px;
+    right: 10px;
+  }
+  
+  .main-content {
+    padding: 60px 10px 10px 10px;
+  }
+  
+  .controls-container {
+    gap: 10px;
+    margin: 10px 0;
+  }
+  
+  .network-button {
+    min-width: 180px;
+  }
+  
+  .pages {
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+    margin: 15px;
+  }
+  
+  .network-dropdown {
+    width: calc(100vw - 20px);
+    left: 0;
+    right: auto;
+    max-height: 250px;
+  }
+}
+
+
+button wui-flex.avatar-container{
+  display: none !important;
+  ;
+}
